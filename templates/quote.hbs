@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>DEVIS {{document.reference}}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; font-size: 12px; color: #111827; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .company-name { font-size: 20px; font-weight: 700; color: {{company.primaryColor}}; }
+    .badge { padding: 4px 10px; border-radius: 999px; background: {{company.accentColor}}; color: white; font-size: 11px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { padding: 6px 4px; border-bottom: 1px solid #E5E7EB; text-align: left; }
+    th { background: #F9FAFB; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+    .totals { margin-top: 15px; width: 40%; margin-left: auto; }
+    .totals td { border: none; }
+    .totals .label { text-align: right; }
+    .totals .value { text-align: right; font-weight: 600; }
+    .note { margin-top: 20px; font-size: 11px; color: #4B5563; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <div class="company-name">{{company.name}}</div>
+      <div>{{company.address}}, {{company.country}}</div>
+      <div>Tel : {{company.phone}} - Email : {{company.email}}</div>
+    </div>
+
+    <div style="text-align:right">
+      <div class="badge">DEVIS {{document.reference}}</div>
+      <div>Date : {{document.issueDate}}</div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px;">
+    <div style="font-weight:600; margin-bottom:4px;">Client</div>
+    <div>{{customer.name}}</div>
+    <div>{{customer.address}}</div>
+    <div>Tel : {{customer.phone}}</div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Qte</th>
+        <th>Description</th>
+        <th>PU ({{document.currency}})</th>
+        <th>Total ({{document.currency}})</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each items}}
+      <tr>
+        <td>{{quantity}}</td>
+        <td>{{description}}</td>
+        <td>{{unit_price}}</td>
+        <td>{{line_total}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <table class="totals">
+    <tr>
+      <td class="label">Sous-total</td>
+      <td class="value">{{subtotal}} {{document.currency}}</td>
+    </tr>
+    <tr>
+      <td class="label">Remise</td>
+      <td class="value">{{document.discountPercent}} %</td>
+    </tr>
+    <tr>
+      <td class="label">Total</td>
+      <td class="value">{{total}} {{document.currency}}</td>
+    </tr>
+  </table>
+
+  {{#if document.notes}}
+    <p class="note"><strong>Note :</strong> {{document.notes}}</p>
+  {{/if}}
+
+</body>
+</html>
