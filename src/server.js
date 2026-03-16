@@ -10,6 +10,9 @@ app.use('/invoices', express.static(path.join(__dirname, '../public/invoices')))
 const invoiceRoutes = require('./routes/invoice');
 app.use('/api', invoiceRoutes);
 
+const invoiceRoutes = require('./routes/invoice');
+app.use('/api', invoiceRoutes);
+
 app.get('/', (req, res) => {
   res.send('Factura API est en ligne 🚀');
 });
