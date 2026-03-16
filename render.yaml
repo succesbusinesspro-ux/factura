@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: factura
+    env: node
+    region: frankfurt
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node src/server.js"
+    envVars:
+      - key: BASE_URL
+        value: https://factura.onrender.com
