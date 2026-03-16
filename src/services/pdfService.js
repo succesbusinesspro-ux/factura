@@ -15,7 +15,8 @@ async function generateInvoicePdf(company, customer, document, items) {
   const total = subtotal - discount;
 
   // Charger le template HTML
-  const templatePath = path.join(__dirname, '../../templates/invoice.hbs');
+  const templateName = document.type.toLowerCase() === "devis" ? "quote" : "invoice";
+const templatePath = path.join(__dirname, `../../templates/${templateName}.hbs`);
   const templateHtml = fs.readFileSync(templatePath, 'utf8');
   const template = Handlebars.compile(templateHtml);
 
