@@ -6,10 +6,6 @@ const app = express();
 app.use(express.json());
 app.use('/invoices', express.static(path.join(__dirname, '../public/invoices')));
 
-// Import des routes
-const invoiceRoutes = require('./routes/invoice');
-app.use('/api', invoiceRoutes);
-
 const invoiceRoutes = require('./routes/invoice');
 app.use('/api', invoiceRoutes);
 
