@@ -8,12 +8,25 @@ router.post('/invoice', async (req, res) => {
   try {
     const { company, customer, document, items } = req.body;
 
-    if (!company || !customer || !document || !items) {
-      return res.status(400).json({
-        success: false,
-        error: 'Champs manquants : company, customer, document, items'
-      });
-    }
+    const url = await generateInvoicePdf(company, customer, document, items);
+
+    // Envoi WhatsApp automatique
+    await sendWhatsAppMessage(url, customer.phone);
+
+    res.json({
+      success: true,
+      pdf_url: url,
+      whatsapp: "Message envoyé"
+    });
+
+  } catch (error) {
+    console.error('Erreur génération PDF :', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur interne lors de la génération du PDF'
+    });
+  }
+});
 
     const url = await generateInvoicePdf(company, customer, document, items);
 
